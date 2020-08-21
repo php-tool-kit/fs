@@ -107,6 +107,8 @@ Funções</h2></td></tr>
 <tr class="separator:acecfe6366c6268051680f2eb1292718c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a690f78ba37ac651e76e0f3ca528a6e33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceptk_1_1fs.html#a690f78ba37ac651e76e0f3ca528a6e33">get_extension</a> (string $filepath)</td></tr>
 <tr class="separator:a690f78ba37ac651e76e0f3ca528a6e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d374350373a12ff948c207821e26a74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceptk_1_1fs.html#a9d374350373a12ff948c207821e26a74">seek_file</a> ($handle, string $regex)</td></tr>
+<tr class="separator:a9d374350373a12ff948c207821e26a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
 <div class="textblock"><p>Ferramentas para trabalhar com diretórios, arquivos e caminhos. </p>
@@ -323,6 +325,43 @@ Funções</h2></td></tr>
 <dl class="section see"><dt>Veja também</dt><dd><a class="el" href="namespaceptk_1_1fs.html#a35281dfa34fc1bf70b9f98e9e11f3c2f">scan()</a> </dd></dl>
 
 <p class="reference">Referencias <a class="el" href="namespaceptk_1_1fs.html#a02e5c5d879dd7a3f379f7c36f8e1dd2a">ptk\fs\join_path()</a> e <a class="el" href="namespaceptk_1_1fs.html#a0972890682cab67d4fa760e848fa1190">ptk\fs\slashes()</a>.</p>
+
+</div>
+</div>
+<a id="a9d374350373a12ff948c207821e26a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d374350373a12ff948c207821e26a74">&#9670;&nbsp;</a></span>seek_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ptk\fs\seek_file </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$regex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Busca nas linhas do arquivo $handle se existe o padrão $regex.</p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">handle</td><td class="paramname">$handle</td><td>Um ponteiro aberto por fopen() </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$regex</td><td>Uma expressão regular para ser usada com preg_grep() </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>array&lt;mixed&gt; Retorna um array com as linhas que correspondem ao padrão, onde a chave é o número da linha e o valor é a própria linha (com a quebra de linha, inclusive). <a class="el" href="">preg_grep()  <a href="https://www.php.net/manual/en/function.fopen">https://www.php.net/manual/en/function.fopen</a> fopen() </a></dd></dl>
 
 </div>
 </div>

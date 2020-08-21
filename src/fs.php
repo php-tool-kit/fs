@@ -184,3 +184,30 @@ function get_extension(string $filepath): string
     
     return $info['extension'] ?? '';
 }
+
+/**
+ * Busca nas linhas do arquivo $handle se existe o padrão $regex.
+ *
+ * @param handle $handle Um ponteiro aberto por fopen()
+ * @param string $regex Uma expressão regular para ser usada com preg_grep()
+ * @return array<mixed> Retorna um array com as linhas que correspondem ao padrão,
+ * onde a chave é o número da linha e o valor é a própria linha (com a quebra de linha, inclusive).
+ * @link https://www.php.net/manual/en/function.preg-grep.php preg_grep()
+ * @link https://www.php.net/manual/en/function.fopen fopen()
+ */
+function seek_file($handle, string $regex): array
+{
+    $result = [];
+    $buffer = fgets($handle);
+    $line_counter = 0;
+    while ($buffer !== false) {
+        $line_counter++;
+        $grep = preg_grep($regex, [$buffer]);
+        if (sizeof($grep) > 0) {
+            $result[$line_counter] = $grep[0];
+        }
+        $buffer = fgets($handle);
+    }
+    
+    return $result;
+}

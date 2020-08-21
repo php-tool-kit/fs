@@ -8,6 +8,7 @@ use function ptk\fs\get_only_files;
 use function ptk\fs\join_path;
 use function ptk\fs\scan;
 use function ptk\fs\scan_recursive;
+use function ptk\fs\seek_file;
 use function ptk\fs\slashes;
 
 class FSTest extends TestCase
@@ -118,5 +119,16 @@ class FSTest extends TestCase
     {
         $this->assertEquals('txt', get_extension('unknow.txt'));
         $this->assertEquals('', get_extension('noextension'));
+    }
+    
+    public function testSeekFile()
+    {
+        $handle = fopen('./examples/sample1.txt', 'r');
+        $result = array_map('trim', seek_file($handle, '/osborn/'));
+        $this->assertEquals([
+            1 => 'john osborn',
+            3 => 'paul osborn'
+        ], $result);
+        fclose($handle);
     }
 }

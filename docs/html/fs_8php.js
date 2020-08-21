@@ -7,5 +7,6 @@ var fs_8php =
     [ "join_path", "fs_8php.html#a02e5c5d879dd7a3f379f7c36f8e1dd2a", null ],
     [ "scan", "fs_8php.html#a35281dfa34fc1bf70b9f98e9e11f3c2f", null ],
     [ "scan_recursive", "fs_8php.html#a39f9e0e6fe8f7b95836a17e2fc674773", null ],
+    [ "seek_file", "fs_8php.html#a9d374350373a12ff948c207821e26a74", null ],
     [ "slashes", "fs_8php.html#a0972890682cab67d4fa760e848fa1190", null ]
 ];
