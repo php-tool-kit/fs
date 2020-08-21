@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['get_5fonly_5fdir_12',['get_only_dir',['../namespaceptk_1_1fs.html#a84678601fd30501a837887c3cbf5a921',1,'ptk::fs']]],
-  ['get_5fonly_5ffiles_13',['get_only_files',['../namespaceptk_1_1fs.html#a2e2176080fd0bbfb302e6065e4918fc6',1,'ptk::fs']]]
+  ['deldir_13',['deldir',['../namespaceptk_1_1fs.html#acecfe6366c6268051680f2eb1292718c',1,'ptk::fs']]]
 ];

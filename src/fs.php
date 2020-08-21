@@ -10,7 +10,7 @@ use Exception;
 
 /**
  * Mescla strings como uma caminho de diretório ou arquivo.
- * 
+ *
  * @param string $pieces
  * @return string
  */
@@ -21,7 +21,7 @@ function join_path(string ...$pieces): string
 
 /**
  * Substituis todas as / e \ para o separador de diretórios padrão do SO.
- * 
+ *
  * Adicionalmente, se $isdir for TRUE, adiciona um separador de diretório ao final.
  * @param string $path
  * @param bool $isdir
@@ -32,8 +32,8 @@ function slashes(string $path, bool $isdir = false): string
     $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
     $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
     
-    if($isdir){
-        if(
+    if ($isdir) {
+        if (
             substr($path, -1, 1) !== '/'
             && substr($path, -1, 1) !== '\\'
         ) {
@@ -46,11 +46,11 @@ function slashes(string $path, bool $isdir = false): string
 
 /**
  * Escaneia o diretório em busca dos subdiretórios/arquivos.
- * 
+ *
  * Não é recursivo e remove . e .. do resultado.
- * 
+ *
  * O retorno é feito com o caminho absoluto dos itens.
- * 
+ *
  * @param string $path
  * @return array<string>
  * @throws Exception
@@ -58,7 +58,7 @@ function slashes(string $path, bool $isdir = false): string
  */
 function scan(string $path): array
 {
-    if(!is_dir($path)){
+    if (!is_dir($path)) {
         throw new Exception("$path não é um diretório ou não existe.");
     }
     
@@ -66,8 +66,8 @@ function scan(string $path): array
     
     $result = [];
     
-    foreach (scandir($path) as $item){
-        if($item !== '.' && $item !== '..'){
+    foreach (scandir($path) as $item) {
+        if ($item !== '.' && $item !== '..') {
             $result[] = join_path($path, $item);
         }
     }
@@ -77,7 +77,7 @@ function scan(string $path): array
 
 /**
  * Escaneia recursivamente um diretório, semelhante a scan().
- * 
+ *
  * @param string $path
  * @return array<astring>
  * @throws Exception
@@ -85,7 +85,7 @@ function scan(string $path): array
  */
 function scan_recursive(string $path): array
 {
-    if(!is_dir($path)){
+    if (!is_dir($path)) {
         throw new Exception("$path não é um diretório ou não existe.");
     }
     
@@ -93,11 +93,11 @@ function scan_recursive(string $path): array
     
     $result = [];
     
-    foreach (scandir($path) as $item){
-        if($item !== '.' && $item !== '..'){
+    foreach (scandir($path) as $item) {
+        if ($item !== '.' && $item !== '..') {
             $item = join_path($path, $item);
             $result[] = $item;
-            if(is_dir($item)){
+            if (is_dir($item)) {
                 $result = array_merge($result, scan_recursive($item));
             }
         }
@@ -108,7 +108,7 @@ function scan_recursive(string $path): array
 
 /**
  * Seleciona apenas os arquivos em uma lista de caminhos.
- * 
+ *
  * @param array<string> $list
  * @return array<string>
  * @see get_only_dir()
@@ -116,8 +116,8 @@ function scan_recursive(string $path): array
 function get_only_files(array $list): array
 {
     $files = [];
-    foreach ($list as $path){
-        if(is_file($path)){
+    foreach ($list as $path) {
+        if (is_file($path)) {
             $files[] = $path;
         }
     }
@@ -127,7 +127,7 @@ function get_only_files(array $list): array
 
 /**
  * Seleciona apenas os diretórios em uma lista de caminhos.
- * 
+ *
  * @param array<string> $list
  * @return array<string>
  * @see get_only_files()
@@ -135,11 +135,36 @@ function get_only_files(array $list): array
 function get_only_dir(array $list): array
 {
     $dir = [];
-    foreach ($list as $path){
-        if(is_dir($path)){
+    foreach ($list as $path) {
+        if (is_dir($path)) {
             $dir[] = $path;
         }
     }
     
     return $dir;
+}
+
+/**
+ * Apaga um diretório recursivamente.
+ *
+ * Apaga mesmo o diretório não estando vazio.
+ *
+ * @param string $path
+ * @return bool
+ * @throws Exception
+ * @link https://www.php.net/manual/en/function.rmdir.php rmdir()
+ */
+function deldir(string $path): bool
+{
+    if (!is_dir($path)) {
+        throw new Exception("$path não é um diretório ou não existe.");
+    }
+    
+    $files = array_diff(scandir($path), ['.', '..']);
+    foreach ($files as $file) {
+        $target = join_path($path, $file);
+        (is_dir($target)) ? deldir($target) : unlink($target);
+    }
+    
+    return rmdir($path);
 }

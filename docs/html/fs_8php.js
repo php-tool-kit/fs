@@ -1,5 +1,6 @@
 var fs_8php =
 [
+    [ "deldir", "fs_8php.html#acecfe6366c6268051680f2eb1292718c", null ],
     [ "get_only_dir", "fs_8php.html#a84678601fd30501a837887c3cbf5a921", null ],
     [ "get_only_files", "fs_8php.html#a2e2176080fd0bbfb302e6065e4918fc6", null ],
     [ "join_path", "fs_8php.html#a02e5c5d879dd7a3f379f7c36f8e1dd2a", null ],

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['fs_4',['fs',['../namespaceptk_1_1fs.html',1,'ptk']]],
-  ['ptk_5',['ptk',['../namespaceptk.html',1,'']]]
+  ['join_5fpath_4',['join_path',['../namespaceptk_1_1fs.html#a02e5c5d879dd7a3f379f7c36f8e1dd2a',1,'ptk::fs']]]
 ];

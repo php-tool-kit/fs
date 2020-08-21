@@ -103,10 +103,47 @@ Funções</h2></td></tr>
 <tr class="separator:a2e2176080fd0bbfb302e6065e4918fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84678601fd30501a837887c3cbf5a921"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceptk_1_1fs.html#a84678601fd30501a837887c3cbf5a921">get_only_dir</a> (array $list)</td></tr>
 <tr class="separator:a84678601fd30501a837887c3cbf5a921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acecfe6366c6268051680f2eb1292718c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceptk_1_1fs.html#acecfe6366c6268051680f2eb1292718c">deldir</a> (string $path)</td></tr>
+<tr class="separator:acecfe6366c6268051680f2eb1292718c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
 <div class="textblock"><p>Ferramentas para trabalhar com diretórios, arquivos e caminhos. </p>
 </div><h2 class="groupheader">Funções</h2>
+<a id="acecfe6366c6268051680f2eb1292718c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acecfe6366c6268051680f2eb1292718c">&#9670;&nbsp;</a></span>deldir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ptk\fs\deldir </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Apaga um diretório recursivamente.</p>
+<p>Apaga mesmo o diretório não estando vazio.</p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$path</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>bool </dd></dl>
+<dl class="exception"><dt>Exceções</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td><a class="el" href="">rmdir() </a></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Referencias <a class="el" href="namespaceptk_1_1fs.html#a02e5c5d879dd7a3f379f7c36f8e1dd2a">ptk\fs\join_path()</a>.</p>
+
+</div>
+</div>
 <a id="a84678601fd30501a837887c3cbf5a921"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a84678601fd30501a837887c3cbf5a921">&#9670;&nbsp;</a></span>get_only_dir()</h2>
 
@@ -185,7 +222,7 @@ Funções</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>string </dd></dl>
 
-<p class="reference">Referenciado(a) por <a class="el" href="namespaceptk_1_1fs.html#a35281dfa34fc1bf70b9f98e9e11f3c2f">ptk\fs\scan()</a> e <a class="el" href="namespaceptk_1_1fs.html#a39f9e0e6fe8f7b95836a17e2fc674773">ptk\fs\scan_recursive()</a>.</p>
+<p class="reference">Referenciado(a) por <a class="el" href="namespaceptk_1_1fs.html#acecfe6366c6268051680f2eb1292718c">ptk\fs\deldir()</a>, <a class="el" href="namespaceptk_1_1fs.html#a35281dfa34fc1bf70b9f98e9e11f3c2f">ptk\fs\scan()</a> e <a class="el" href="namespaceptk_1_1fs.html#a39f9e0e6fe8f7b95836a17e2fc674773">ptk\fs\scan_recursive()</a>.</p>
 
 </div>
 </div>

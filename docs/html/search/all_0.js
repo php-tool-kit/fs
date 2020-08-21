@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fs_2ephp_0',['fs.php',['../fs_8php.html',1,'']]]
+  ['deldir_0',['deldir',['../namespaceptk_1_1fs.html#acecfe6366c6268051680f2eb1292718c',1,'ptk::fs']]]
 ];

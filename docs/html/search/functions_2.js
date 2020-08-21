@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['scan_15',['scan',['../namespaceptk_1_1fs.html#a35281dfa34fc1bf70b9f98e9e11f3c2f',1,'ptk::fs']]],
-  ['scan_5frecursive_16',['scan_recursive',['../namespaceptk_1_1fs.html#a39f9e0e6fe8f7b95836a17e2fc674773',1,'ptk::fs']]],
-  ['slashes_17',['slashes',['../namespaceptk_1_1fs.html#a0972890682cab67d4fa760e848fa1190',1,'ptk::fs']]]
+  ['join_5fpath_16',['join_path',['../namespaceptk_1_1fs.html#a02e5c5d879dd7a3f379f7c36f8e1dd2a',1,'ptk::fs']]]
 ];
