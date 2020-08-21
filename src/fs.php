@@ -182,8 +182,5 @@ function get_extension(string $filepath): string
 {
     $info = pathinfo($filepath);
     
-    if (!key_exists('extension', $info)) {
-        return '';
-    }
-    return $info['extension'];
+    return $info['extension'] ?? '';
 }
