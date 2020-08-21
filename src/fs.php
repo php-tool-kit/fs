@@ -168,3 +168,22 @@ function deldir(string $path): bool
     
     return rmdir($path);
 }
+
+/**
+ * Retorna a extensão do arquivo.
+ *
+ *
+ * @param string $filepath O nome/caminho para o arquivo, mesmo que seja um arquivo inexistente.
+ *
+ * @return string O retorno engloba apenas os caracteres da extensão, sem o ".".
+ * Caso o arquivo não possua extensão ou seja um diretório, uma string vazia é retornada.
+ */
+function get_extension(string $filepath): string
+{
+    $info = pathinfo($filepath);
+    
+    if (!key_exists('extension', $info)) {
+        return '';
+    }
+    return $info['extension'];
+}

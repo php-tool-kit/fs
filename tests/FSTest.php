@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use function ptk\fs\deldir;
+use function ptk\fs\get_extension;
 use function ptk\fs\get_only_dir;
 use function ptk\fs\get_only_files;
 use function ptk\fs\join_path;
@@ -111,5 +112,11 @@ class FSTest extends TestCase
     {
         $this->expectException(Exception::class);
         deldir('unknow');
+    }
+    
+    public function testGetExtension()
+    {
+        $this->assertEquals('txt', get_extension('unknow.txt'));
+        $this->assertEquals('', get_extension('noextension'));
     }
 }

@@ -105,6 +105,8 @@ Funções</h2></td></tr>
 <tr class="separator:a84678601fd30501a837887c3cbf5a921"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acecfe6366c6268051680f2eb1292718c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceptk_1_1fs.html#acecfe6366c6268051680f2eb1292718c">deldir</a> (string $path)</td></tr>
 <tr class="separator:acecfe6366c6268051680f2eb1292718c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a690f78ba37ac651e76e0f3ca528a6e33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceptk_1_1fs.html#a690f78ba37ac651e76e0f3ca528a6e33">get_extension</a> (string $filepath)</td></tr>
+<tr class="separator:a690f78ba37ac651e76e0f3ca528a6e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
 <div class="textblock"><p>Ferramentas para trabalhar com diretórios, arquivos e caminhos. </p>
@@ -141,6 +143,32 @@ Funções</h2></td></tr>
 </dl>
 
 <p class="reference">Referencias <a class="el" href="namespaceptk_1_1fs.html#a02e5c5d879dd7a3f379f7c36f8e1dd2a">ptk\fs\join_path()</a>.</p>
+
+</div>
+</div>
+<a id="a690f78ba37ac651e76e0f3ca528a6e33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a690f78ba37ac651e76e0f3ca528a6e33">&#9670;&nbsp;</a></span>get_extension()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ptk\fs\get_extension </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$filepath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retorna a extensão do arquivo.</p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$filepath</td><td>O nome/caminho para o arquivo, mesmo que seja um arquivo inexistente.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>string O retorno engloba apenas os caracteres da extensão, sem o ".". Caso o arquivo não possua extensão ou seja um diretório, uma string vazia é retornada. </dd></dl>
 
 </div>
 </div>
