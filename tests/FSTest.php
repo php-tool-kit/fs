@@ -131,4 +131,22 @@ class FSTest extends TestCase
         ], $result);
         fclose($handle);
     }
+    
+    public function testSeekFileEmptyResult()
+    {
+        $handle = fopen('./examples/sample1.txt', 'r');
+        $result = array_map('trim', seek_file($handle, '/unknow/'));
+        $this->assertEquals([], $result);
+        fclose($handle);
+    }
+    
+    public function testSeekFileEmptyFile()
+    {
+        $handle = fopen('./tests/assets/file.txt', 'r');
+        $result = array_map('trim', seek_file($handle, '/osborn/'));
+        $this->assertEquals([], $result);
+        fclose($handle);
+    }
+    
+    
 }
