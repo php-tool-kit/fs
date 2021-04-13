@@ -1,30 +1,54 @@
 {
-    "name": "php-tool-kit/fs",
-    "description": "Ferramentas para manipulação de diretórios e arquivos.",
+    "name": "vendor/package_name",
+    "description": "Package description",
     "type": "library",
+    "keywords": ["key word 1", "key word 2"],
+    "readme": "README.md",
     "license": "MIT",
     "authors": [
         {
-            "name": "Everton",
-            "email": "your@email.here"
+            "name": "Everton da Rosa",
+            "email": "everton3x@gmail.com",
+            "homepage": "https://everton3x.github.io",
+            "role": "developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/vendor/package_name/issues",
+        "source": "https://github.com/vendor/package_name"
+    },
+    "minimum-stability": "dev",
     "require": {
-        "php": ">=7.4.3"
+        "php": ">=7.4.12"
     },
     "autoload": {
-        "files": [
-            "src/fs.php"
-        ]
+        "psr-4": {
+            "Namespace\\": "src",
+            "Namespace\\Test\\": "tests"
+        }
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "phpstan/phpstan": "*",
-        "squizlabs/php_codesniffer": "*"
+        "phpunit/phpunit": "@stable",
+        "phpmd/phpmd": "@stable",
+        "friendsofphp/php-cs-fixer": "@stable",
+        "squizlabs/php_codesniffer": "@stable",
+        "phpstan/phpstan": "@stable",
+        "vimeo/psalm": "@stable"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --coverage-html=coverage --whitelist=src --colors=auto --testdox --no-configuration tests",
-        "format": "./vendor/bin/phpcbf -p --standard=PSR1,PSR12 src",
-        "check": "./vendor/bin/phpcs -p --colors --standard=PSR1,PSR12 src"
+        "push": [
+            "git add .",
+            "git commit",
+            "git push"
+        ],
+        "phpdoc": "php ./tools/phpDocumentor.phar --config conf/phpdocumentor.xml",
+        "phpunit": "phpunit.bat --configuration conf/phpunit.xml",
+        "psalm": "psalm -c ./conf/psalm.xml",
+        "phpstan": "phpstan analyse -c conf/phpstan.neon",
+        "phpmd": "phpmd src ansi cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpcs": "phpcs -p --standard=PSR12 src tests",
+        "phpcbf": "phpcbf -p --standard=PSR12 src tests",
+        "php-cs-fixer": "php-cs-fixer fix --config=conf/php-cs-fixer.php",
+        "phpcpd": "php ./tools/phpcpd.phar --fuzzy src"
     }
 }
