@@ -1,8 +1,8 @@
 {
-    "name": "vendor/package_name",
-    "description": "Package description",
+    "name": "php-tool-kit/fs",
+    "description": "Ferramentas para manipulação de arquivos, diretórios e caminhos.",
     "type": "library",
-    "keywords": ["key word 1", "key word 2"],
+    "keywords": ["file-system", "file-manipulation", "directory-manipulation"],
     "readme": "README.md",
     "license": "MIT",
     "authors": [
@@ -14,17 +14,17 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/vendor/package_name/issues",
-        "source": "https://github.com/vendor/package_name"
+        "issues": "https://github.com/php-tool-kit/fs/issues",
+        "source": "https://github.com/php-tool-kit/fs"
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.4.12"
+        "php": ">=8.0.3"
     },
     "autoload": {
         "psr-4": {
-            "Namespace\\": "src",
-            "Namespace\\Test\\": "tests"
+            "PTK\\FS\\": "src",
+            "PTK\\FS\\Test\\": "tests"
         }
     },
     "require-dev": {
