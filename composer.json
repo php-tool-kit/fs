@@ -28,7 +28,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable",
+        "phpunit/phpunit": "@beta",
         "phpmd/phpmd": "@stable",
         "friendsofphp/php-cs-fixer": "@stable",
         "squizlabs/php_codesniffer": "@stable",
