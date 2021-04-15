@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -32,20 +38,28 @@ namespace PTK\FS\Exception;
  * @author Everton
  * @codeCoverageIgnore
  */
-class CopyException extends FSException {
-    
+class CopyException extends FSException
+{
     protected string $source;
     protected string $destiny;
-    
-    public function __construct(string $source, string $destiny, string $message = "", int $code = 0, \Throwable $previous = null) {
+
+    public function __construct(
+        string $source,
+        string $destiny,
+        string $message = '',
+        int $code = 0,
+        \Throwable $previous = null
+    ) {
         parent::__construct($source, $message, $code, $previous);
+        $this->source = $source;
+        $this->destiny = $destiny;
     }
-    
+
     public function getSource(): string
     {
         return $this->source;
     }
-    
+
     public function getDestiny(): string
     {
         return $this->destiny;

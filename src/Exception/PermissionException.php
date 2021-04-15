@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -32,15 +38,21 @@ namespace PTK\FS\Exception;
  * @author Everton
  * @codeCoverageIgnore
  */
-class PermissionException extends FSException {
-    
+class PermissionException extends FSException
+{
     protected int $permission;
-    
-    public function __construct(string $path, int $permission, string $message = "", int $code = 0, \Throwable $previous = null) {
+
+    public function __construct(
+        string $path,
+        int $permission,
+        string $message = '',
+        int $code = 0,
+        \Throwable $previous = null
+    ) {
         $this->permission = $permission;
         parent::__construct($path, $message, $code, $previous);
     }
-    
+
     public function getPermission(): int
     {
         return $this->permission;

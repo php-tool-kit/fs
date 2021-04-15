@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -26,6 +32,9 @@
 
 namespace PTK\FS;
 
+use PTK\FS\Exception\CopyException;
+use PTK\FS\Exception\FSException;
+use PTK\FS\Exception\MoveException;
 use PTK\FS\Exception\NodeAlreadyExistsException;
 use PTK\FS\Exception\NodeInaccessibleException;
 use PTK\FS\Exception\NotFoundException;
@@ -38,9 +47,10 @@ use PTK\FS\Writer\FileWriter;
  * Manipula um arquivo.
  *
  * @author Everton
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class File implements NodeInterface {
-    
+class File implements NodeInterface
+{
     public const MODE_READ = 'r';
     public const MODE_READ_WRITE = 'r+';
     public const MODE_WRITE_TRUNCATE = 'w';
@@ -51,35 +61,40 @@ class File implements NodeInterface {
     public const MODE_READ_WRITE_FAIL_IF_EXISTS = 'x+';
     public const MODE_WRITE_START_POINTER = 'c';
     public const MODE_READ_WRITE_START_POINTER = 'c+';
-    
+
     protected string $filename;
-    
+
+    /**
+     *
+     * @var resource
+     */
     protected $handle;
-    
+
     protected string $openMode;
 
-    public function __construct(string $filename) {
-        $this->filename = realpath($filename);
-        
-        if(!file_exists($this->filename)){
-            throw new NotFoundException($this->filename);
+    public function __construct(string $filename)
+    {
+        $this->filename = (string) \realpath($filename);
+
+        if (! \file_exists((string) $this->filename)) {
+            throw new NotFoundException((string) $this->filename);
         }
     }
-    
+
     public static function create(string $path): NodeInterface
     {
-        if(file_exists($path)){
+        if (\file_exists($path)) {
             throw new NodeAlreadyExistsException($path);
         }
-        
-        $handle = file_put_contents($path, '');
+
+        $handle = \file_put_contents($path, '');
         // @codeCoverageIgnoreStart
         // não consegui imaginar uma forma de testar isso ainda
-        if($handle === false){
+        if ($handle === false) {
             throw new NodeInaccessibleException($path);
         }
         // @codeCoverageIgnoreEnd
-        
+
         return new File($path);
     }
 
@@ -91,26 +106,28 @@ class File implements NodeInterface {
      */
     public function open(string $mode): File
     {
-        $this->handle = fopen($this->filename, $mode);
+        $fopen = \fopen($this->filename, $mode);
         // @codeCoverageIgnoreStart
         // não descobri como testar isso
-        if($this->handle === false){
+        if ($fopen === false) {
             throw new NodeInaccessibleException($this->filename);
         }
         // @codeCoverageIgnoreEnd
+        $this->handle = $fopen;
         $this->openMode = $mode;
+
         return $this;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function getOpenMode(): string
     {
         return $this->openMode;
     }
-    
+
     /**
      * Retorna o caminho completo do arquivo.
      * @return string
@@ -120,122 +137,122 @@ class File implements NodeInterface {
     {
         return $this->filename;
     }
-    
+
     /**
      * Lê dados do arquivo.
-     * 
+     *
      * Devolve uma instância de FileReader.
-     * 
+     *
      * @return FileReader
      * @throws NotReadableException
      */
     public function read(): FileReader
     {
-        if(is_null($this->handle)){
+        if (! \is_resource($this->handle)) {
             throw new NotReadableException($this->filename);
         }
-        
+
         // @codeCoverageIgnoreStart
         // não sei como testar isso ainda
-        if(is_readable($this->filename) === false){
+        if (\is_readable($this->filename) === false) {
             throw new NotReadableException($this->filename);
         }
         // @codeCoverageIgnoreEnd
         return new FileReader($this->handle);
     }
-    
+
     public function close(): File
     {
-        $close = fclose($this->handle);
+        $close = \fclose($this->handle);
         // @codeCoverageIgnoreStart
         // não sei como testar isso ainda
-        if($close === false){
+        if ($close === false) {
             throw new NodeInaccessibleException($this->filename);
         }
         // @codeCoverageIgnoreEnd
-        
+
         return $this;
     }
-    
+
     /**
      * Escreve conteúdo no arquivo aberto.
-     * 
+     *
      * @return FileWriter
      * @throws NotWriteableException
      */
     public function write(): FileWriter
     {
-        if(is_null($this->handle)){
+        if (! \is_resource($this->handle)) {
             throw new NotWriteableException($this->filename);
         }
         // @codeCoverageIgnoreStart
         // não sei como testar isso ainda
-        if(is_writeable($this->filename) === false){
+        if (\is_writable($this->filename) === false) {
             throw new NotWriteableException($this->filename);
         }
         // @codeCoverageIgnoreEnd
         return new FileWriter($this->handle, $this);
     }
-    
+
     /**
      * Detecta se o ponteiro do arquivo aberto está no fim do arquivo.
-     * 
+     *
      * @return bool
      * @throws NodeInaccessibleException
      */
     public function eof(): bool
     {
-        if(is_null($this->handle)){
+        if (! \is_resource($this->handle)) {
             throw new NodeInaccessibleException($this->filename);
         }
-        
-        return feof($this->handle);
+
+        return \feof($this->handle);
     }
-    
+
     /**
      * Copia o arquivo para um novo local especificado por $to.
-     * 
-     * @param string $to
+     *
+     * @param string $destiny
      * @return File Retorna uma instância de File representando o novo arquivo.
      */
-    public function copy(string $to): File
+    public function copy(string $destiny): File
     {
-        $copy = copy($this->filename, $to);
-        
+        $copy = \copy($this->filename, $destiny);
+
         // @codeCoverageIgnoreStart
         // ainda não sei como testar
-        if($copy === false){
-            throw new CopyException($this->filename, $to);
+        if ($copy === false) {
+            throw new CopyException($this->filename, $destiny);
         }
         // @codeCoverageIgnoreEnd
-        
-        return new File($to);
+
+        return new File($destiny);
     }
-    
+
     /**
      * Move o arquivo para um novo local especificado por $to.
-     * 
-     * @param string $to Novo arquivo. Se existir, será sobrescrito.
+     *
+     * @param string $destiny Novo arquivo. Se existir, será sobrescrito.
      * @return File Retorna uma instância de File representando o novo arquivo.
      */
-    public function move(string $to): File
+    public function move(string $destiny): File
     {
-        $move = rename($this->filename, $to);
+        $move = \rename($this->filename, $destiny);
         // @codeCoverageIgnoreStart
         // ainda não sei como testar
-        if($move === false){
-            throw new MoveException($this->filename, $to);
+        if ($move === false) {
+            throw new MoveException($this->filename, $destiny);
         }
         // @codeCoverageIgnoreEnd
-        
-        return new File($to);
+
+        return new File($destiny);
     }
-    
+
     /**
      * Renomeia o arquivo.
-     * 
+     *
      * Internamente utiliza File::move().
-     * 
+     *
      * @param string $newName
      * @return File
      */
@@ -243,73 +260,77 @@ class File implements NodeInterface {
     {
         return $this->move($newName);
     }
-    
+
     /**
      * Apaga o arquivo.
-     * 
+     *
      * @return bool
      */
     public function delete(): bool
     {
-        return unlink($this->filename);
+        return \unlink($this->filename);
     }
-    
+
     /**
      * Retorna a extensão do arquivo, sem o ponto.
      * @return string
      */
     public function getExtension(): string
     {
-        return pathinfo($this->filename, PATHINFO_EXTENSION);
+        return \pathinfo($this->filename, PATHINFO_EXTENSION);
     }
-    
+
     /**
-     * Retorna o nome do arquivo, com ou sem a extensão.
-     * 
-     * @param bool $extension
+     * Retorna o nome do arquivo com sua extensão.
+     *
      * @return string
      */
-    public function getFileName(bool $extension = true): string
+    public function getFileName(): string
     {
-        $suffix = '';
-        if($extension === false){
-            $suffix = ".{$this->getExtension()}";
-        }
-        
-        return basename($this->filename, $suffix);
+        return \basename($this->filename);
     }
-    
+
+    /**
+     * Retorna o nome do arquivo sem sua extensão.
+     *
+     * @return string
+     */
+    public function getFileNameNoExtension(): string
+    {
+        return \basename($this->filename, ".{$this->getExtension()}");
+    }
+
     /**
      * Retorna o caminho do diretório do arquivo.
-     * 
+     *
      * @return string
      */
     public function getFileDir(): string
     {
-       return dirname($this->filename);
+        return \dirname($this->filename);
     }
-    
+
     /**
      * Reincia o ponteiro do arquivo.
-     * 
+     *
      * @return File
      * @throws NodeInaccessibleException
      * @throws FSException
      */
     public function rewind(): File
     {
-        if(is_null($this->handle)){
+        if (! \is_resource($this->handle)) {
             throw new NodeInaccessibleException($this->filename);
         }
-        
-        $rewind = rewind($this->handle);
+
+        $rewind = \rewind($this->handle);
         // @codeCoverageIgnoreStart
         // ainda não sei como testar isso
-        if($rewind === false){
+        if ($rewind === false) {
             throw new FSException($this->filename);
         }
         // @codeCoverageIgnoreEnd
-        
+
         return $this;
     }
 }

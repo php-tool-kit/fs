@@ -41,7 +41,7 @@
             "git commit",
             "git push"
         ],
-        "phpdoc": "php ./tools/phpDocumentor.phar --config conf/phpdocumentor.xml",
+        "phpdoc": "C:/php/php-7.4.12-nts-Win32-vc15-x64/php.exe ./tools/phpDocumentor.phar --config conf/phpdocumentor.xml",
         "phpunit": "phpunit.bat --configuration conf/phpunit.xml",
         "psalm": "psalm -c ./conf/psalm.xml",
         "phpstan": "phpstan analyse -c conf/phpstan.neon",

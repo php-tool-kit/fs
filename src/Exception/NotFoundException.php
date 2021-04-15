@@ -1,6 +1,12 @@
 <?php
 
-/* 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
+/*
  * The MIT License
  *
  * Copyright 2021 Everton.
@@ -29,12 +35,13 @@ use Throwable;
 
 /**
  * Quando um arquivo/diretório não é encontrado.
- * 
+ *
  * @codeCoverageIgnore
  */
 class NotFoundException extends FSException
 {
-    public function __construct(string $path, string $message = "", int $code = 0, Throwable $previous = null) {
+    public function __construct(string $path, string $message = '', int $code = 0, Throwable $previous = null)
+    {
         parent::__construct($path, $message, $code, $previous);
     }
 }

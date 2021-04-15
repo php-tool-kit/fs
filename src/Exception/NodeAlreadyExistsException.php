@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -34,8 +40,10 @@ use Throwable;
  * @author Everton
  * @codeCoverageIgnore
  */
-class NodeAlreadyExistsException extends FSException {
-    public function __construct(string $path, string $message = "", int $code = 0, Throwable $previous = null) {
+class NodeAlreadyExistsException extends FSException
+{
+    public function __construct(string $path, string $message = '', int $code = 0, Throwable $previous = null)
+    {
         parent::__construct($path, $message, $code, $previous);
     }
 }

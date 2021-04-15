@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -35,16 +41,16 @@ use Throwable;
  * @author Everton
  * @codeCoverageIgnore
  */
-class FSException extends Exception {
-    
+class FSException extends Exception
+{
     protected string $path;
-    
-    public function __construct(string $path, string $message = "", int $code = 0, Throwable $previous = null)
+
+    public function __construct(string $path, string $message = '', int $code = 0, Throwable $previous = null)
     {
         $this->path = $path;
         parent::__construct($message, $code, $previous);
     }
-    
+
     public function getPath(): string
     {
         return $this->path;

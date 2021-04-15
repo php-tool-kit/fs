@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -34,42 +40,44 @@ use PTK\FS\File;
  *
  * @author Everton
  */
-class FileWriter {
-
+class FileWriter
+{
     /**
-     * 
+     *
      * @var resource
      */
     private $handle;
-    
+
     /**
-     * 
+     *
      * @var File
      */
     private File $file;
 
     /**
-     * 
+     *
      * @param resource $handle
      * @param File $file
      */
-    public function __construct($handle, File $file) {
+    public function __construct($handle, File $file)
+    {
         $this->handle = $handle;
         $this->file = $file;
     }
 
     /**
      * Escreve uma string no arquivo.
-     * 
+     *
      * Não é adicionada quebra de linha ao final da string. Isso deve ser feito manualmente se necessário.
-     * 
+     *
      * Escreve na posição atual do ponteiro, conforme $mode usado por fopen() ou fseek().
      * @param string $data
      * @return File
      * @throws NotWriteableException
      */
-    public function string(string $data): File {
-        $result = fwrite($this->handle, $data);
+    public function string(string $data): File
+    {
+        $result = \fwrite($this->handle, $data);
         // @codeCoverageIgnoreStart
         // ainda não sei como testar
         if ($result === false) {
@@ -82,16 +90,17 @@ class FileWriter {
     /**
      * Escreve um array para o arquivo considerando cada item do array uma nova linha. Por isso,
      *  adiciona ao final de cada item do array, uma quebra de linha como PHP_EOL.
-     * 
+     *
      * Escreve na posição atual do ponteiro, conforme $mode usado por fopen() ou fseek().
-     * 
-     * @param array $data
+     *
+     * @param array<string> $data
      * @return File
      * @throws NotWriteableException
      */
-    public function array(array $data): File {
+    public function array(array $data): File
+    {
         foreach ($data as $buffer) {
-            $result = fwrite($this->handle, $buffer.PHP_EOL);
+            $result = \fwrite($this->handle, $buffer . PHP_EOL);
             // @codeCoverageIgnoreStart
             // ainda não sei como testar
             if ($result === false) {
@@ -102,5 +111,4 @@ class FileWriter {
 
         return $this->file;
     }
-
 }

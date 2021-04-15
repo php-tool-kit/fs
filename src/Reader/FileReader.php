@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -31,53 +37,59 @@ namespace PTK\FS\Reader;
  *
  * @author Everton
  */
-class FileReader {
-
+class FileReader
+{
     /**
-     * 
+     *
      * @var resource
      */
     private $handle;
 
     /**
-     * 
+     *
      * @param resource $handle
      */
-    public function __construct($handle) {
+    public function __construct($handle)
+    {
         $this->handle = $handle;
     }
 
     /**
      * Lê todo o conteúdo do arquivo e devolve como string, sem nenhum tratamento.
-     * 
-     * * O ponto de leitura inicia no ponto onde o ponteiro do arquivo estiver definido conforme $mode de fopen() ou fseek()
-     * 
+     *
+     * * O ponto de leitura inicia no ponto onde o ponteiro do arquivo estiver definido conforme
+     *  $mode de fopen() ou fseek()
+     *
      * @return string
      */
-    public function asString(): string {
+    public function asString(): string
+    {
         $data = '';
-        while (feof($this->handle) !== true) {
-            $buffer = fgets($this->handle);
+        while (\feof($this->handle) !== true) {
+            $buffer = \fgets($this->handle);
             $data .= $buffer;
         }
+
         return $data;
     }
 
     /**
      * Lê o conteúdo do arquivo e devolve cada linha como um elemento de array. Alica trim() em cada linha.
-     * 
-     * O ponto de leitura inicia no ponto onde o ponteiro do arquivo estiver definido conforme $mode de fopen() ou fseek()
-     * @return array
+     *
+     * O ponto de leitura inicia no ponto onde o ponteiro do arquivo estiver definido conforme
+     *  $mode de fopen() ou fseek()
+     * @return array<string>
      */
-    public function asArray(): array {
+    public function asArray(): array
+    {
         $data = [];
-        while (feof($this->handle) !== true) {
-            $buffer = fgets($this->handle);
-            if($buffer !== false){
-                $data[] = trim($buffer);
+        while (\feof($this->handle) !== true) {
+            $buffer = \fgets($this->handle);
+            if ($buffer !== false) {
+                $data[] = \trim($buffer);
             }
         }
-        
+
         return $data;
     }
 
@@ -85,8 +97,8 @@ class FileReader {
      * Lê uma linha com fgets() e avança o ponteiro interno do arquivo.
      * @return mixed
      */
-    public function line() {
-        return fgets($this->handle);
+    public function line()
+    {
+        return \fgets($this->handle);
     }
-
 }
