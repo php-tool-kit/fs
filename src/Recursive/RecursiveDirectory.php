@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
- */
-
-declare(strict_types=1);
-
 /*
  * The MIT License
  *
@@ -29,19 +23,35 @@ declare(strict_types=1);
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace PTK\FS\Exception;
 
-use Throwable;
+namespace PTK\FS\Recursive;
+
+use RecursiveDirectoryIterator;
 
 /**
- * Quando um arquivo/diretório não é encontrado.
+ * Implementa métodos recursivos
  *
- * @codeCoverageIgnore
+ * @author Everton
  */
-class NotFoundException extends FSException
-{
-    public function __construct(string $path, string $message = '', int $code = 0, Throwable $previous = null)
+class RecursiveDirectory {
+    
+    
+    public function __construct(string $directory) {
+        ;
+    }
+    
+    public function list(): array
     {
-        parent::__construct($path, $message, $code, $previous);
+        
+    }
+    
+    public function iterator(): RecursiveDirectoryIterator
+    {
+        
+    }
+    
+    public function delete(): bool
+    {
+        
     }
 }

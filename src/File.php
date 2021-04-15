@@ -37,7 +37,7 @@ use PTK\FS\Exception\FSException;
 use PTK\FS\Exception\MoveException;
 use PTK\FS\Exception\NodeAlreadyExistsException;
 use PTK\FS\Exception\NodeInaccessibleException;
-use PTK\FS\Exception\NotFoundException;
+use PTK\FS\Exception\NodeNotFoundException;
 use PTK\FS\Exception\NotReadableException;
 use PTK\FS\Exception\NotWriteableException;
 use PTK\FS\Reader\FileReader;
@@ -77,7 +77,7 @@ class File implements NodeInterface
         $this->filename = (string) \realpath($filename);
 
         if (! \file_exists((string) $this->filename)) {
-            throw new NotFoundException((string) $this->filename);
+            throw new NodeNotFoundException((string) $this->filename);
         }
     }
 
@@ -332,5 +332,14 @@ class File implements NodeInterface
         // @codeCoverageIgnoreEnd
 
         return $this;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getParent(): string
+    {
+        return dirname();
     }
 }

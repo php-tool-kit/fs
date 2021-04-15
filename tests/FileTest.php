@@ -36,7 +36,7 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use PTK\FS\Exception\NodeAlreadyExistsException;
 use PTK\FS\Exception\NodeInaccessibleException;
-use PTK\FS\Exception\NotFoundException;
+use PTK\FS\Exception\NodeNotFoundException;
 use PTK\FS\Exception\NotReadableException;
 use PTK\FS\Exception\NotWriteableException;
 use PTK\FS\File;
@@ -110,7 +110,7 @@ class FileTest extends TestCase
     {
         $path = 'inexistent.txt';
 
-        $this->expectException(NotFoundException::class);
+        $this->expectException(NodeNotFoundException::class);
         $file = new File($path);
     }
 
