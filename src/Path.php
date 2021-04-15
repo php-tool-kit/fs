@@ -1,18 +1,24 @@
 <?php
+
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 namespace PTK\FS;
 
-use PTK\FS\Exception\NodeNotFoundException;
 use PTK\FS\Exception\FSException;
+use PTK\FS\Exception\NodeNotFoundException;
 
 /**
  * Manipula caminhos de arquivos/diretórios, independentemente de existir ou não em disco.
  *
  * @author Everton
- *        
+ *
  */
 class Path
 {
-
     /**
      *
      * @var string
@@ -21,7 +27,7 @@ class Path
 
     /**
      *
-     * @param array<string> $pieces
+     * @param string $pieces
      *            Uma lista de strings.
      *            Caso mais de uma string for fornecida, a lista será concatenada usando DIRECTORY_SEPARATOR
      *            como separador.
@@ -39,7 +45,7 @@ class Path
      */
     public function exists(): bool
     {
-        return file_exists($this->path);
+        return \file_exists($this->path);
     }
 
     /**
@@ -50,7 +56,7 @@ class Path
      */
     protected function join(array $pieces): string
     {
-        return join(DIRECTORY_SEPARATOR, $pieces);
+        return \implode(DIRECTORY_SEPARATOR, $pieces);
     }
 
     /**
@@ -63,12 +69,13 @@ class Path
      */
     protected function normalize(string $path): string
     {
-        $path = preg_replace('/\\|\//', DIRECTORY_SEPARATOR, $path);
+        $path = \preg_replace('/\\|\//', DIRECTORY_SEPARATOR, $path);
 
         if ($this->isDir()) {
             $path .= DIRECTORY_SEPARATOR;
         }
-        return $path;
+
+        return (string) $path;
     }
 
     /**
@@ -83,18 +90,18 @@ class Path
      */
     public function getExtension(): string
     {
-        $boom = explode('.', $this->path);
-        $size = sizeof($boom);
+        $boom = \explode('.', $this->path);
+        $size = \count($boom);
 
         if ($size === 1) {
-            throw new FSException($this->path, $size);
+            throw new FSException($this->path, '', $size);
         }
 
         if ($size > 2) {
-            throw new FSException($this->path, $size);
+            throw new FSException($this->path, '', $size);
         }
 
-        return array_pop($boom);
+        return \array_pop($boom);
     }
 
     /**
@@ -123,8 +130,9 @@ class Path
      */
     public function isFile(): bool
     {
-        if ($this->isDir())
+        if ($this->isDir()) {
             return false;
+        }
 
         return true;
     }
@@ -148,7 +156,7 @@ class Path
     public function getRealPath(): string
     {
         if ($this->exists()) {
-            return realpath($this->path);
+            return (string) \realpath($this->path);
         }
         throw new NodeNotFoundException($this->path);
     }
@@ -158,6 +166,7 @@ class Path
      *
      * @return NodeInterface
      * @throws FSException
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function create(): NodeInterface
     {
@@ -172,4 +181,3 @@ class Path
         throw new FSException($this->path);
     }
 }
-

@@ -333,13 +333,13 @@ class File implements NodeInterface
 
         return $this;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function getParent(): string
     {
-        return dirname();
+        return \dirname($this->filename);
     }
 }

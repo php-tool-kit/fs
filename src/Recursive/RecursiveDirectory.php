@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -33,25 +39,21 @@ use RecursiveDirectoryIterator;
  *
  * @author Everton
  */
-class RecursiveDirectory {
-    
-    
-    public function __construct(string $directory) {
-        ;
+class RecursiveDirectory
+{
+    public function __construct(string $directory)
+    {
     }
-    
+
     public function list(): array
     {
-        
     }
-    
+
     public function iterator(): RecursiveDirectoryIterator
     {
-        
     }
-    
+
     public function delete(): bool
     {
-        
     }
 }

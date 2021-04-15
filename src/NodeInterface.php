@@ -93,10 +93,10 @@ interface NodeInterface
      * @return bool
      */
     public function delete(): bool;
-    
+
     /**
      * Retorna o diretório imediatamente acima do node.
-     * 
+     *
      * @return string
      */
     public function getParent(): string;

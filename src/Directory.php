@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -26,8 +32,8 @@
 
 namespace PTK\FS;
 
-use PTK\FS\Exception\NodeNotFoundException;
 use PTK\FS\Exception\FSException;
+use PTK\FS\Exception\NodeNotFoundException;
 use PTK\FS\Recursive\RecursiveDirectory;
 
 /**
@@ -35,64 +41,67 @@ use PTK\FS\Recursive\RecursiveDirectory;
  *
  * @author Everton
  */
-class Directory implements NodeInterface {
-    
+class Directory implements NodeInterface
+{
     /**
-     * 
+     *
      * @var string
      */
     protected string $directory = '';
-    
-    public function __construct(string $directory) {
-        if(!file_exists($directory)){
+
+    public function __construct(string $directory)
+    {
+        if (! \file_exists($directory)) {
             throw new NodeNotFoundException($directory);
         }
-        
-        $this->directory = (string) realpath($directory);
+
+        $this->directory = (string) \realpath($directory);
     }
 
-    public function copy(string $destiny): Directory {
-        
+    public function copy(string $destiny): Directory
+    {
     }
 
-    public function delete(): bool {
-        
+    public function delete(): bool
+    {
     }
 
-    public function move(string $destiny): Directory {
-        
+    public function move(string $destiny): Directory
+    {
     }
 
-    public function rename(string $newName): Directory {
-        
+    public function rename(string $newName): Directory
+    {
     }
 
-    public static function create(string $directory): Directory {
+    public static function create(string $directory): Directory
+    {
         $mkdir = true;
-        if(!file_exists($directory)){
-            $mkdir = mkdir($directory, 0755, true);
+        if (! \file_exists($directory)) {
+            $mkdir = \mkdir($directory, 0755, true);
         }
-        
-        if($mkdir){
+
+        if ($mkdir) {
             return new Directory($directory);
         }
-        
+
         throw FSException($directory);
     }
-    
-    public function getDirPath(): string {
-        
+
+    public function getDirPath(): string
+    {
     }
-    
-    public function list(): array{
-        
+
+    public function list(): array
+    {
     }
-    
-    public function recursive(): RecursiveDirectory {
-        
+
+    public function recursive(): RecursiveDirectory
+    {
     }
-    
-    public function getParent(): string{
-        return dirname();
+
+    public function getParent(): string
+    {
+        return \dirname();
     }
 }
