@@ -180,4 +180,8 @@ class Path
 
         throw new FSException($this->path);
     }
+    
+    public function __toString(): string{
+        return $this->getRealPath();
+    }
 }

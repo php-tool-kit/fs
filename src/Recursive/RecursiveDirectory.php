@@ -3,8 +3,7 @@
 /**
  * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
  */
-
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * The MIT License
@@ -29,31 +28,80 @@ declare(strict_types=1);
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace PTK\FS\Recursive;
 
-use RecursiveDirectoryIterator;
+use PTK\FS\Directory;
 
 /**
- * Implementa mÃ©todos recursivos
+ * Implementa métodos recursivos
  *
  * @author Everton
  */
 class RecursiveDirectory
 {
+    protected string $directory;
+    
     public function __construct(string $directory)
     {
+        $this->directory = $directory;
+    }
+    
+    public function list(int $filter = 0): array
+    {
+        $dir = new Directory($this->directory);
+        
+        $content = [];
+        
+        $list = $dir->list();
+        
+        foreach($list as $node){
+            $content[] = $node;
+            if(\is_dir($node)){
+                $dir = new Directory($node);
+                $content = \array_merge($content, $dir->list());
+            }
+        }
+        
+        
+        if($filter === Directory::LIST_DIR){
+            foreach ($content as $key => $node){
+                if(!\is_dir($node)){
+                    unset($content[$key]);
+                }
+            }
+        }
+            
+        if($filter === Directory::LIST_FILES){
+            foreach ($content as $key => $node){
+                if(!\is_file($node)){
+                    unset($content[$key]);
+                }
+            }
+        }
+        
+        return array_merge($content);
     }
 
-    public function list(): array
+    public function iterator(): \RecursiveDirectoryIterator
     {
-    }
-
-    public function iterator(): RecursiveDirectoryIterator
-    {
+        return new \RecursiveDirectoryIterator($this->directory);
     }
 
     public function delete(): bool
     {
+        $list = $this->list(Directory::LIST_FILES);
+        foreach ($list as $node){
+            if(\is_file($node)){
+                \unlink($node);
+            }
+        }
+        $list = $this->list(Directory::LIST_DIR);
+        foreach ($list as $node){
+            if(\is_dir($node)){
+                \rmdir($node);
+            }
+        }
+        
+        return true;
     }
 }

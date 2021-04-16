@@ -3,8 +3,7 @@
 /**
  * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
  */
-
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * The MIT License
@@ -29,12 +28,12 @@ declare(strict_types=1);
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace PTK\FS;
 
 use PTK\FS\Exception\FSException;
 use PTK\FS\Exception\NodeNotFoundException;
 use PTK\FS\Recursive\RecursiveDirectory;
+use PTK\FS\Exception\NodeInaccessibleException;
 
 /**
  * Manipulador de diretÃ³rio.
@@ -43,6 +42,13 @@ use PTK\FS\Recursive\RecursiveDirectory;
  */
 class Directory implements NodeInterface
 {
+
+    const LIST_ALL = 0;
+
+    const LIST_DIR = 1;
+
+    const LIST_FILES = 2;
+
     /**
      *
      * @var string
@@ -60,20 +66,59 @@ class Directory implements NodeInterface
 
     public function copy(string $destiny): Directory
     {
+        if (! \file_exists($destiny)) {
+            if (\mkdir($destiny, 0755, true) === false) {
+                throw new NodeInaccessibleException($destiny);
+            }
+        }
+
+        $list = $this->recursive()->list();
+
+        foreach ($list as $node) {
+            
+        }
     }
 
+    /**
+     * Deleta os arquivos (não recursivo) e os subdiretórios não vazios.
+     *
+     * O diretório em si não é deletado, apenas o seu conteúdo, de forma não recursiva.
+     *
+     * {@inheritdoc}
+     * @see \PTK\FS\NodeInterface::delete()
+     */
     public function delete(): bool
     {
+        $list = $this->list();
+
+        foreach ($list as $node) {
+            if (\is_file($node)) {
+                \unlink($node);
+            }
+
+            if (\is_dir($node)) {
+                $dir = new Directory($node);
+                $subcontent = $dir->list();
+                if (\sizeof($subcontent) === 0) {
+                    \rmdir($node);
+                }
+            }
+        }
+
+        return true;
     }
 
     public function move(string $destiny): Directory
-    {
-    }
+    {}
 
     public function rename(string $newName): Directory
-    {
-    }
+    {}
 
+    /**
+     *
+     * @param string $directory
+     * @return Directory
+     */
     public static function create(string $directory): Directory
     {
         $mkdir = true;
@@ -85,23 +130,64 @@ class Directory implements NodeInterface
             return new Directory($directory);
         }
 
+        // @codeCoverageIgnoreStart
         throw FSException($directory);
+        // @codeCoverageIgnoreEnd
     }
 
+    /**
+     * Retorna o caminho do diretório.
+     *
+     * @return string
+     */
     public function getDirPath(): string
     {
+        return $this->directory;
     }
 
-    public function list(): array
+    /**
+     * Lista o conteúdo do diretório (não recursivo).
+     *
+     * @param int $filter
+     *            0: Mostra arquivos e diretórios; 1: mostra apenas diretórios; 2: Mostra apenas arquivos. Veja as constantes Directory::LIST_*
+     * @return array<string>
+     */
+    public function list(int $filter = 0): array
     {
+        $iterator = new \DirectoryIterator($this->directory);
+        $content = [];
+
+        foreach ($iterator as $node) {
+            if ($node->isDot()) {
+                continue;
+            }
+
+            if ($filter === 0) {
+                $content[] = $node->getRealPath();
+                continue;
+            }
+
+            if ($filter === 1 && $node->isDir()) {
+                $content[] = $node->getRealPath();
+                continue;
+            }
+
+            if ($filter === 2 && $node->isFile()) {
+                $content[] = $node->getRealPath();
+                continue;
+            }
+        }
+
+        return $content;
     }
 
     public function recursive(): RecursiveDirectory
     {
+        return new RecursiveDirectory($this->directory);
     }
 
     public function getParent(): string
     {
-        return \dirname();
+        return \dirname($this->directory);
     }
 }
