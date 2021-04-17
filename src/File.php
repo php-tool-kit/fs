@@ -342,8 +342,9 @@ class File implements NodeInterface
     {
         return \dirname($this->filename);
     }
-    
-    public function __toString(): string {
+
+    public function __toString(): string
+    {
         return $this->filename;
     }
 }

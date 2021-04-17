@@ -35,7 +35,7 @@ namespace PTK\FS;
 use PTK\FS\Exception\FSException;
 
 /**
- * Node representa um arquivo ou diret√≥rio no sistema de arquivos.
+ * Node representa um arquivo ou diretÛrio no sistema de arquivos.
  *
  * @author Everton
  */
@@ -48,39 +48,39 @@ interface NodeInterface
     public function __construct(string $path);
 
     /**
-     * Cria um arquivo/diret√≥rio.
+     * Cria um arquivo/diretÛrio.
      *
-     * Diret√≥rios s√£o criados recursivamente.
+     * DiretÛrios s„o criados recursivamente.
      *
-     * O comportamento padr√£o quando se est√° tentando criar:
+     * O comportamento padr„o quando se est· tentando criar:
      *
-     * - diret√≥rio: se j√° existe, n√£o tenta recriar; se n√£o existe, cria;
-     * - arquivo: se j√° existe, dispara uma exce√ß√£o, se n√£o, cria.
+     * - diretÛrio: se j· existe, n„o tenta recriar; se n„o existe, cria;
+     * - arquivo: se j· existe, dispara uma exceÁ„o, se n„o, cria.
      *
      * @param string $path
-     * @return NodeInterface Retorna uma inst√¢ncia do node criado.
+     * @return NodeInterface Retorna uma inst‚ncia do node criado.
      * @throws FSException
      */
     public static function create(string $path): NodeInterface;
 
     /**
-     * Copia um arquivo/diret√≥rio.
+     * Copia um arquivo/diretÛrio.
      *
      * @param string $destiny
-     * @return NodeInterface Retorna uma nova inst√¢ncia com o novo arquivo/diret√≥rio.
+     * @return NodeInterface Retorna uma nova inst‚ncia com o novo arquivo/diretÛrio.
      */
     public function copy(string $destiny): NodeInterface;
 
     /**
-     * Move um arquivo/diret√≥rio.
+     * Move um arquivo/diretÛrio.
      *
      * @param string $destiny
-     * @return NodeInterface Retorna uma nova inst√¢ncia com o novo arquivo/diret√≥rio.
+     * @return NodeInterface Retorna uma nova inst‚ncia com o novo arquivo/diretÛrio.
      */
     public function move(string $destiny): NodeInterface;
 
     /**
-     * Renomeia o arquivo/diret√≥rio. Internamente utiliza NodeInterface::move()
+     * Renomeia o arquivo/diretÛrio. Internamente utiliza NodeInterface::move()
      *
      * @param string $newName
      * @return NodeInterface
@@ -88,19 +88,19 @@ interface NodeInterface
     public function rename(string $newName): NodeInterface;
 
     /**
-     * Apaga uma rquivo/diret√≥rio.
+     * Apaga um arquivo/diretÛrio.
      *
      * @return bool
      */
     public function delete(): bool;
 
     /**
-     * Retorna o diret√≥rio imediatamente acima do node.
+     * Retorna o diretÛrio imediatamente acima do node.
      *
      * @return string
      */
     public function getParent(): string;
-    
+
     /**
      * Mostra o caminho do node quando o casting para string for feito.
      * @return string

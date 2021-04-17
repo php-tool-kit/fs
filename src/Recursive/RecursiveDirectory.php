@@ -3,7 +3,8 @@
 /**
  * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
  */
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 /*
  * The MIT License
@@ -31,6 +32,7 @@ declare(strict_types = 1);
 namespace PTK\FS\Recursive;
 
 use PTK\FS\Directory;
+use RecursiveDirectoryIterator;
 
 /**
  * Implementa métodos recursivos
@@ -39,69 +41,92 @@ use PTK\FS\Directory;
  */
 class RecursiveDirectory
 {
+    /**
+     *
+     * @var string O diretório de trabalho.
+     */
     protected string $directory;
-    
+
+    /**
+     *
+     * @param string $directory
+     */
     public function __construct(string $directory)
     {
         $this->directory = $directory;
     }
-    
+
+    /**
+     * Lista de arquivos/diretório recursivos.
+     *
+     * @param int $filter Filtro de acordo com as constantes LIST_*
+     *
+     * @return array<string>
+     */
     public function list(int $filter = 0): array
     {
         $dir = new Directory($this->directory);
-        
+
         $content = [];
-        
+
         $list = $dir->list();
-        
-        foreach($list as $node){
+
+        foreach ($list as $node) {
             $content[] = $node;
-            if(\is_dir($node)){
+            if (\is_dir($node)) {
                 $dir = new Directory($node);
                 $content = \array_merge($content, $dir->list());
             }
         }
-        
-        
-        if($filter === Directory::LIST_DIR){
-            foreach ($content as $key => $node){
-                if(!\is_dir($node)){
+
+        if ($filter === Directory::LIST_DIR) {
+            foreach ($content as $key => $node) {
+                if (! \is_dir($node)) {
                     unset($content[$key]);
                 }
             }
         }
-            
-        if($filter === Directory::LIST_FILES){
-            foreach ($content as $key => $node){
-                if(!\is_file($node)){
+
+        if ($filter === Directory::LIST_FILES) {
+            foreach ($content as $key => $node) {
+                if (! \is_file($node)) {
                     unset($content[$key]);
                 }
             }
         }
-        
-        return array_merge($content);
+
+        return \array_merge($content);
     }
 
-    public function iterator(): \RecursiveDirectoryIterator
+    /**
+     *
+     * @return RecursiveDirectoryIterator
+     */
+    public function iterator(): RecursiveDirectoryIterator
     {
-        return new \RecursiveDirectoryIterator($this->directory);
+        return new RecursiveDirectoryIterator($this->directory);
     }
 
+    /**
+     * Deleção recursiva.
+     *
+     * @return bool
+     */
     public function delete(): bool
     {
         $list = $this->list(Directory::LIST_FILES);
-        foreach ($list as $node){
-            if(\is_file($node)){
+        foreach ($list as $node) {
+            if (\is_file($node)) {
                 \unlink($node);
             }
         }
         $list = $this->list(Directory::LIST_DIR);
-        foreach ($list as $node){
-            if(\is_dir($node)){
+        foreach ($list as $node) {
+            if (\is_dir($node)) {
                 \rmdir($node);
             }
         }
-        
+
         return true;
     }
 }

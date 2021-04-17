@@ -3,7 +3,8 @@
 /**
  * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
  */
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 /*
  * The MIT License
@@ -30,34 +31,54 @@ declare(strict_types = 1);
  */
 namespace PTK\FS;
 
+use DirectoryIterator;
 use PTK\FS\Exception\FSException;
+use PTK\FS\Exception\NodeInaccessibleException;
 use PTK\FS\Exception\NodeNotFoundException;
 use PTK\FS\Recursive\RecursiveDirectory;
-use PTK\FS\Exception\NodeInaccessibleException;
 
 /**
  * Manipulador de diretório.
  *
  * @author Everton
- * 
- * TODO Melhorias de código
+ *
  * TODO Codecoverage
  */
 class Directory implements NodeInterface
 {
-
-    const LIST_ALL = 0;
-
-    const LIST_DIR = 1;
-
-    const LIST_FILES = 2;
+    /**
+     * Lista arquivos e diretetórios.
+     *
+     * @var integer
+     */
+    public const LIST_ALL = 0;
 
     /**
+     * Lista apenas diretórios.
+     *
+     * @var integer
+     */
+    public const LIST_DIR = 1;
+
+    /**
+     * Lista apenas arquivos.
+     *
+     * @var integer
+     */
+    public const LIST_FILES = 2;
+
+    /**
+     * O diretório da instância.
      *
      * @var string
      */
     protected string $directory = '';
 
+    /**
+     *
+     * @param string $directory
+     * @throws NodeNotFoundException
+     */
     public function __construct(string $directory)
     {
         if (! \file_exists($directory)) {
@@ -69,43 +90,43 @@ class Directory implements NodeInterface
 
     /**
      * Copia recursivamente o conteúdo do diretório.
-     * 
+     *
      * @return Directory Retorna uma instância do diretório de destino.
-     * 
-     * {@inheritDoc}
+     *
+     * {@inheritdoc}
      * @see \PTK\FS\NodeInterface::copy()
      */
     public function copy(string $destiny): Directory
     {
-        if (!\file_exists($destiny)) {
+        if (! \file_exists($destiny)) {
             if (\mkdir($destiny, 0755, true) === false) {
                 throw new NodeInaccessibleException($destiny);
             }
         }
-        
+
         $destiny = new Directory($destiny);
 
         $list = $this->recursive()->list();
 
         foreach ($list as $o) {
-            $d = str_replace($this->directory, $destiny->getDirPath(), $o);
-            $path = new Path($d);
-            if($path->isDir()){
-                if(!$path->exists()){
-                    mkdir($d, 0755, true);
+            $target = \str_replace($this->directory, $destiny->getDirPath(), $o);
+            $path = new Path($target);
+            if ($path->isDir()) {
+                if (! $path->exists()) {
+                    \mkdir($target, 0755, true);
                 }
             }
-            
-            if($path->isFile()){
-                $parent = dirname($d);
-                if(!file_exists($parent)){
-                    mkdir($parent, 0755, true);
+
+            if ($path->isFile()) {
+                $parent = \dirname($target);
+                if (! \file_exists($parent)) {
+                    \mkdir($parent, 0755, true);
                 }
-                
-                copy($o, $d);
+
+                \copy($o, $target);
             }
         }
-        
+
         return $destiny;
     }
 
@@ -129,7 +150,7 @@ class Directory implements NodeInterface
             if (\is_dir($node)) {
                 $dir = new Directory($node);
                 $subcontent = $dir->list();
-                if (\sizeof($subcontent) === 0) {
+                if (\count($subcontent) === 0) {
                     \rmdir($node);
                 }
             }
@@ -140,28 +161,30 @@ class Directory implements NodeInterface
 
     /**
      * Move o conteúdo para um novo local.
-     * 
-     * Observe que a partir do sucesso da operação, o diretório atual não vai mais existir, então a instância atual não vai mais poder ser usada.
-     * 
+     *
+     * Observe que a partir do sucesso da operação, o diretório atual não vai mais existir,
+     *  então a instância atual não vai mais poder ser usada.
+     *
      * @return Directory Retorna uma instância com o diretório de destino.
-     * 
-     * {@inheritDoc}
+     *
+     * {@inheritdoc}
      * @see \PTK\FS\NodeInterface::move()
      */
     public function move(string $destiny): Directory
     {
         $target = $this->copy($destiny);
         $this->recursive()->delete();
-        rmdir($this->directory);
+        \rmdir($this->directory);
+
         return $target;
     }
 
     /**
      * Apelido para Directory::move()
-     * 
+     *
      * @see Directory::move()
-     * 
-     * {@inheritDoc}
+     *
+     * {@inheritdoc}
      * @see \PTK\FS\NodeInterface::rename()
      */
     public function rename(string $newName): Directory
@@ -186,7 +209,7 @@ class Directory implements NodeInterface
         }
 
         // @codeCoverageIgnoreStart
-        throw FSException($directory);
+        throw new FSException($directory);
         // @codeCoverageIgnoreEnd
     }
 
@@ -204,12 +227,13 @@ class Directory implements NodeInterface
      * Lista o conteúdo do diretório (não recursivo).
      *
      * @param int $filter
-     *            0: Mostra arquivos e diretórios; 1: mostra apenas diretórios; 2: Mostra apenas arquivos. Veja as constantes Directory::LIST_*
+     *            0: Mostra arquivos e diretórios; 1: mostra apenas diretórios; 2: Mostra apenas arquivos.
+     *             Veja as constantes Directory::LIST_*
      * @return array<string>
      */
     public function list(int $filter = 0): array
     {
-        $iterator = new \DirectoryIterator($this->directory);
+        $iterator = new DirectoryIterator($this->directory);
         $content = [];
 
         foreach ($iterator as $node) {
@@ -217,18 +241,24 @@ class Directory implements NodeInterface
                 continue;
             }
 
+            $path = $node->getRealPath();
+
+            if ($path === false) {
+                throw new NodeInaccessibleException((string) $path);
+            }
+
             if ($filter === 0) {
-                $content[] = $node->getRealPath();
+                $content[] = $path;
                 continue;
             }
 
             if ($filter === 1 && $node->isDir()) {
-                $content[] = $node->getRealPath();
+                $content[] = $path;
                 continue;
             }
 
             if ($filter === 2 && $node->isFile()) {
-                $content[] = $node->getRealPath();
+                $content[] = $path;
                 continue;
             }
         }
@@ -236,17 +266,35 @@ class Directory implements NodeInterface
         return $content;
     }
 
+    /**
+     * Devolve uma instância com métodos recursivos.
+     *
+     * @return RecursiveDirectory
+     */
     public function recursive(): RecursiveDirectory
     {
         return new RecursiveDirectory($this->directory);
     }
 
+    /**
+     * O diretório imediatamente superior.
+     *
+     * {@inheritdoc}
+     * @see \PTK\FS\NodeInterface::getParent()
+     */
     public function getParent(): string
     {
         return \dirname($this->directory);
     }
-    
-    public function __toString(): string {
+
+    /**
+     * Retorna o diretório da instância quando casting para string é aplicado sobre o objeto.
+     *
+     * {@inheritdoc}
+     * @see \PTK\FS\NodeInterface::__toString()
+     */
+    public function __toString(): string
+    {
         return $this->directory;
     }
 }

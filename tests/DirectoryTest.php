@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Prooph was here at `%package%` in `%year%`! Please create a .docheader in the project root and run `composer cs-fix`
+ */
+
+declare(strict_types=1);
+
 namespace tests;
 
 use PHPUnit\Framework\TestCase;
@@ -7,7 +14,6 @@ use PTK\FS\Exception\NodeNotFoundException;
 
 class DirectoryTest extends TestCase
 {
-
     protected string $cacheDir = 'tests/cache/';
 
     public function testCreationSuccess()
@@ -24,7 +30,7 @@ class DirectoryTest extends TestCase
 
     public function testCreateDirExists()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $dir = Directory::create($dirpath);
         $this->assertInstanceOf(Directory::class, $dir);
         $this->assertTrue(\is_dir($dirpath));
@@ -32,7 +38,7 @@ class DirectoryTest extends TestCase
 
     public function testCreateDirNotExists()
     {
-        $dirpath = $this->cacheDir . "test1/";
+        $dirpath = $this->cacheDir . 'test1/';
         @\rmdir($dirpath);
         $dir = Directory::create($dirpath);
         $this->assertInstanceOf(Directory::class, $dir);
@@ -41,21 +47,21 @@ class DirectoryTest extends TestCase
 
     public function testGetParent()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $dir = Directory::create($dirpath);
         $this->assertEquals(\realpath(\dirname($dirpath)), $dir->getParent());
     }
 
     public function testGetDirPath()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $dir = Directory::create($dirpath);
         $this->assertEquals(\realpath($dirpath), $dir->getDirPath());
     }
 
     public function testListAllNotRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -77,7 +83,7 @@ class DirectoryTest extends TestCase
             \realpath($file2),
             \realpath($file3),
             \realpath($subdir1),
-            \realpath($subdir2)
+            \realpath($subdir2),
         ];
 
         $this->assertEquals($expected, $dir->list());
@@ -85,7 +91,7 @@ class DirectoryTest extends TestCase
 
     public function testListOnlyFilesNotRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -105,7 +111,7 @@ class DirectoryTest extends TestCase
         $expected = [
             \realpath($file1),
             \realpath($file2),
-            \realpath($file3)
+            \realpath($file3),
         ];
 
         $this->assertEquals($expected, $dir->list(Directory::LIST_FILES));
@@ -113,7 +119,7 @@ class DirectoryTest extends TestCase
 
     public function testListOnlyDirsNotRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -132,7 +138,7 @@ class DirectoryTest extends TestCase
 
         $expected = [
             \realpath($subdir1),
-            \realpath($subdir2)
+            \realpath($subdir2),
         ];
 
         $this->assertEquals($expected, $dir->list(Directory::LIST_DIR));
@@ -140,7 +146,7 @@ class DirectoryTest extends TestCase
 
     public function testDeleteNotRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -158,7 +164,7 @@ class DirectoryTest extends TestCase
         \file_put_contents($file12, 'teste');
 
         $expected = [
-            \realpath($subdir1)
+            \realpath($subdir1),
         ];
 
         $this->assertTrue($dir->delete());
@@ -167,7 +173,7 @@ class DirectoryTest extends TestCase
 
     public function testListAllRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -191,7 +197,7 @@ class DirectoryTest extends TestCase
             \realpath($subdir1),
             \realpath($file11),
             \realpath($file12),
-            \realpath($subdir2)
+            \realpath($subdir2),
         ];
 
         $this->assertEquals($expected, $dir->recursive()
@@ -200,7 +206,7 @@ class DirectoryTest extends TestCase
 
     public function testListOnlyDirsRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -219,7 +225,7 @@ class DirectoryTest extends TestCase
 
         $expected = [
             \realpath($subdir1),
-            \realpath($subdir2)
+            \realpath($subdir2),
         ];
 
         $this->assertEquals($expected, $dir->recursive()
@@ -228,7 +234,7 @@ class DirectoryTest extends TestCase
 
     public function testListOnlyFilesRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -250,7 +256,7 @@ class DirectoryTest extends TestCase
             \realpath($file2),
             \realpath($file3),
             \realpath($file11),
-            \realpath($file12)
+            \realpath($file12),
         ];
 
         $this->assertEquals($expected, $dir->recursive()
@@ -266,7 +272,7 @@ class DirectoryTest extends TestCase
 
     public function testDeleteRecursive()
     {
-        $dirpath = $this->cacheDir . "test/";
+        $dirpath = $this->cacheDir . 'test/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -290,8 +296,8 @@ class DirectoryTest extends TestCase
 
     public function testCopySuccess()
     {
-        $dirpath = $this->cacheDir . "test/";
-        $destiny = $this->cacheDir . "test_copyed/";
+        $dirpath = $this->cacheDir . 'test/';
+        $destiny = $this->cacheDir . 'test_copyed/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -311,23 +317,23 @@ class DirectoryTest extends TestCase
         $this->assertInstanceOf(Directory::class, $target = $dir->copy($destiny));
 
         $expected = [
-            realpath($destiny . 'file1.txt'),
-            realpath($destiny . 'file2.txt'),
-            realpath($destiny . 'file3.txt'),
-            realpath($destiny . 'subdir1'),
-            realpath($destiny . 'subdir1/file11.txt'),
-            realpath($destiny . 'subdir1/file12.txt'),
-            realpath($destiny . 'subdir2')
+            \realpath($destiny . 'file1.txt'),
+            \realpath($destiny . 'file2.txt'),
+            \realpath($destiny . 'file3.txt'),
+            \realpath($destiny . 'subdir1'),
+            \realpath($destiny . 'subdir1/file11.txt'),
+            \realpath($destiny . 'subdir1/file12.txt'),
+            \realpath($destiny . 'subdir2'),
         ];
 
         $this->assertEquals($expected, $target->recursive()
             ->list());
     }
-    
+
     public function testMoveSuccess()
     {
-        $dirpath = $this->cacheDir . "test/";
-        $destiny = $this->cacheDir . "test_copyed/";
+        $dirpath = $this->cacheDir . 'test/';
+        $destiny = $this->cacheDir . 'test_copyed/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -343,29 +349,29 @@ class DirectoryTest extends TestCase
         \file_put_contents($file3, 'teste');
         \file_put_contents($file11, 'teste');
         \file_put_contents($file12, 'teste');
-        
+
         $this->assertInstanceOf(Directory::class, $target = $dir->move($destiny));
-        
+
         $expected = [
-            realpath($destiny . 'file1.txt'),
-            realpath($destiny . 'file2.txt'),
-            realpath($destiny . 'file3.txt'),
-            realpath($destiny . 'subdir1'),
-            realpath($destiny . 'subdir1/file11.txt'),
-            realpath($destiny . 'subdir1/file12.txt'),
-            realpath($destiny . 'subdir2')
+            \realpath($destiny . 'file1.txt'),
+            \realpath($destiny . 'file2.txt'),
+            \realpath($destiny . 'file3.txt'),
+            \realpath($destiny . 'subdir1'),
+            \realpath($destiny . 'subdir1/file11.txt'),
+            \realpath($destiny . 'subdir1/file12.txt'),
+            \realpath($destiny . 'subdir2'),
         ];
-        
+
         $this->assertEquals($expected, $target->recursive()
             ->list());
-        
-        $this->assertFalse(file_exists($dirpath));
+
+        $this->assertFalse(\file_exists($dirpath));
     }
-    
+
     public function testRenameSuccess()
     {
-        $dirpath = $this->cacheDir . "test/";
-        $destiny = $this->cacheDir . "test_copyed/";
+        $dirpath = $this->cacheDir . 'test/';
+        $destiny = $this->cacheDir . 'test_copyed/';
         $subdir1 = $dirpath . 'subdir1/';
         $subdir2 = $dirpath . 'subdir2/';
         $file1 = $dirpath . 'file1.txt';
@@ -381,23 +387,22 @@ class DirectoryTest extends TestCase
         \file_put_contents($file3, 'teste');
         \file_put_contents($file11, 'teste');
         \file_put_contents($file12, 'teste');
-        
+
         $this->assertInstanceOf(Directory::class, $target = $dir->rename($destiny));
-        
+
         $expected = [
-            realpath($destiny . 'file1.txt'),
-            realpath($destiny . 'file2.txt'),
-            realpath($destiny . 'file3.txt'),
-            realpath($destiny . 'subdir1'),
-            realpath($destiny . 'subdir1/file11.txt'),
-            realpath($destiny . 'subdir1/file12.txt'),
-            realpath($destiny . 'subdir2')
+            \realpath($destiny . 'file1.txt'),
+            \realpath($destiny . 'file2.txt'),
+            \realpath($destiny . 'file3.txt'),
+            \realpath($destiny . 'subdir1'),
+            \realpath($destiny . 'subdir1/file11.txt'),
+            \realpath($destiny . 'subdir1/file12.txt'),
+            \realpath($destiny . 'subdir2'),
         ];
-        
+
         $this->assertEquals($expected, $target->recursive()
             ->list());
-        
-        $this->assertFalse(file_exists($dirpath));
+
+        $this->assertFalse(\file_exists($dirpath));
     }
 }
-
