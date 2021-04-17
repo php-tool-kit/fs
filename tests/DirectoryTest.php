@@ -405,4 +405,10 @@ class DirectoryTest extends TestCase
 
         $this->assertFalse(\file_exists($dirpath));
     }
+
+    public function testMagicToString()
+    {
+        $path = new Directory(__DIR__);
+        $this->assertEquals(\realpath(__DIR__), (string) $path);
+    }
 }

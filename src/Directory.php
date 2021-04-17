@@ -99,9 +99,11 @@ class Directory implements NodeInterface
     public function copy(string $destiny): Directory
     {
         if (! \file_exists($destiny)) {
+            // @codeCoverageIgnoreStart
             if (\mkdir($destiny, 0755, true) === false) {
                 throw new NodeInaccessibleException($destiny);
             }
+            // @codeCoverageIgnoreEnd
         }
 
         $destiny = new Directory($destiny);
@@ -119,9 +121,11 @@ class Directory implements NodeInterface
 
             if ($path->isFile()) {
                 $parent = \dirname($target);
+                // @codeCoverageIgnoreStart
                 if (! \file_exists($parent)) {
                     \mkdir($parent, 0755, true);
                 }
+                // @codeCoverageIgnoreEnd
 
                 \copy($o, $target);
             }
@@ -243,9 +247,11 @@ class Directory implements NodeInterface
 
             $path = $node->getRealPath();
 
+            // @codeCoverageIgnoreStart
             if ($path === false) {
                 throw new NodeInaccessibleException((string) $path);
             }
+            // @codeCoverageIgnoreEnd
 
             if ($filter === 0) {
                 $content[] = $path;

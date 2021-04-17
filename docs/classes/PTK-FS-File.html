@@ -85,7 +85,7 @@
     
             <span class="phpdocumentor-element__implements">
             implements
-                            <a href="classes/PTK-FS-NodeInterface.html"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></a>                    </span>
+                            <abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr>                    </span>
     
     </h2>
 
@@ -134,8 +134,8 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/PTK-FS-NodeInterface.html"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></a></dt>
-        <dd>Node representa um arquivo ou diretório no sistema de arquivos.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></dt>
+        <dd></dd>
     
     
     </dl>
@@ -246,6 +246,13 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PTK-FS-File.html#method___toString">__toString()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PTK-FS-File.html#method_close">close()</a>
     <span>
                         &nbsp;: <a href="classes/PTK-FS-File.html"><abbr title="\PTK\FS\File">File</abbr></a>    </span>
@@ -262,9 +269,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PTK-FS-File.html#method_create">create()</a>
     <span>
-                        &nbsp;: <a href="classes/PTK-FS-NodeInterface.html"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></a>    </span>
+                        &nbsp;: <abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr>    </span>
 </dt>
-<dd>Cria um arquivo/diretório.</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PTK-FS-File.html#method_delete">delete()</a>
@@ -317,6 +324,13 @@
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PTK-FS-File.html#method_getOpenMode">getOpenMode()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PTK-FS-File.html#method_getParent">getParent()</a>
     <span>
                         &nbsp;: string    </span>
 </dt>
@@ -751,8 +765,7 @@
     <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -768,6 +781,38 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___toString">
+        __toString()
+        <a href="classes/PTK-FS-File.html#method___toString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/File.php"><a href="files/src-file.html"><abbr title="src/File.php">File.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">346</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">__toString</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -867,20 +912,12 @@
     <span class="phpdocumentor-element-found-in__line">84</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Cria um arquivo/diretório.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PTK-FS-NodeInterface.html"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></a></span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></span></code>
 
-        <section class="phpdocumentor-description"><p>Diretórios são criados recursivamente.</p>
-<p>O comportamento padrão quando se está tentando criar:</p>
-<ul>
-<li>diretório: se já existe, não tenta recriar; se não existe, cria;</li>
-<li>arquivo: se já existe, dispara uma exceção, se não, cria.</li>
-</ul>
-</section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -888,18 +925,16 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PTK-FS-NodeInterface.html"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\PTK\FS\NodeInterface">NodeInterface</abbr></span>
             &mdash;
-            <section class="phpdocumentor-description"><p>Retorna uma instância do node criado.</p>
-</section>
+            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1191,6 +1226,39 @@
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__name">getOpenMode</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getParent">
+        getParent()
+        <a href="classes/PTK-FS-File.html#method_getParent" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/File.php"><a href="files/src-file.html"><abbr title="src/File.php">File.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">341</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getParent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 

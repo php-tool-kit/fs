@@ -336,4 +336,16 @@ class FileTest extends TestCase
         $this->expectException(NodeInaccessibleException::class);
         $file->rewind();
     }
+
+    public function testMagicToString()
+    {
+        $path = new File(__FILE__);
+        $this->assertEquals(\realpath(__FILE__), (string) $path);
+    }
+
+    public function testGetParent()
+    {
+        $path = new File(__FILE__);
+        $this->assertEquals(\realpath(dirname(__FILE__)), $path->getParent());
+    }
 }

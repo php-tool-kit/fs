@@ -175,10 +175,15 @@ class Path
         }
 
         if ($this->isFile()) {
+            if (!file_exists(dirname($this->path))) {
+                throw new NodeNotFoundException($this->path);
+            }
             return File::create($this->path);
         }
 
+        // @codeCoverageIgnoreStart
         throw new FSException($this->path);
+        // @codeCoverageIgnoreEnd
     }
 
     public function __toString(): string

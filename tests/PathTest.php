@@ -115,9 +115,22 @@ class PathTest extends TestCase
         $this->assertInstanceOf(Directory::class, $path->create());
     }
 
-    public function testfileCreation()
+    public function testFileCreation()
     {
         $path = new Path(...$this->sampleFile);
         $this->assertInstanceOf(PTK\FS\File::class, $path->create());
+    }
+
+    public function testCreationFails()
+    {
+        $path = new Path('unknow_dir/file.txt');
+        $this->expectException(FSException::class);
+        $path->create();
+    }
+
+    public function testMagicToString()
+    {
+        $path = new Path(__FILE__);
+        $this->assertEquals(\realpath(__FILE__), (string) $path);
     }
 }

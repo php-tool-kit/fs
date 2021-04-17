@@ -101,15 +101,15 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PTK-FS-Exception-NodeInaccessibleException.html#method___construct"
         },                {
-            "fqsen": "\\PTK\\FS\\Exception\\NotFoundException",
-            "name": "NotFoundException",
+            "fqsen": "\\PTK\\FS\\Exception\\NodeNotFoundException",
+            "name": "NodeNotFoundException",
             "summary": "Quando\u0020um\u0020arquivo\/diret\u00F3rio\u0020n\u00E3o\u0020\u00E9\u0020encontrado.",
-            "url": "classes/PTK-FS-Exception-NotFoundException.html"
+            "url": "classes/PTK-FS-Exception-NodeNotFoundException.html"
         },                {
-            "fqsen": "\\PTK\\FS\\Exception\\NotFoundException\u003A\u003A__construct\u0028\u0029",
+            "fqsen": "\\PTK\\FS\\Exception\\NodeNotFoundException\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "",
-            "url": "classes/PTK-FS-Exception-NotFoundException.html#method___construct"
+            "url": "classes/PTK-FS-Exception-NodeNotFoundException.html#method___construct"
         },                {
             "fqsen": "\\PTK\\FS\\Exception\\NotReadableException",
             "name": "NotReadableException",
@@ -193,7 +193,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PTK\\FS\\File\u003A\u003Acreate\u0028\u0029",
             "name": "create",
-            "summary": "Cria\u0020um\u0020arquivo\/diret\u00F3rio.",
+            "summary": "",
             "url": "classes/PTK-FS-File.html#method_create"
         },                {
             "fqsen": "\\PTK\\FS\\File\u003A\u003Aopen\u0028\u0029",
@@ -276,6 +276,16 @@ Search.appendIndex(
             "summary": "Reincia\u0020o\u0020ponteiro\u0020do\u0020arquivo.",
             "url": "classes/PTK-FS-File.html#method_rewind"
         },                {
+            "fqsen": "\\PTK\\FS\\File\u003A\u003AgetParent\u0028\u0029",
+            "name": "getParent",
+            "summary": "",
+            "url": "classes/PTK-FS-File.html#method_getParent"
+        },                {
+            "fqsen": "\\PTK\\FS\\File\u003A\u003A__toString\u0028\u0029",
+            "name": "__toString",
+            "summary": "",
+            "url": "classes/PTK-FS-File.html#method___toString"
+        },                {
             "fqsen": "\\PTK\\FS\\File\u003A\u003AMODE_READ",
             "name": "MODE_READ",
             "summary": "",
@@ -340,41 +350,6 @@ Search.appendIndex(
             "name": "openMode",
             "summary": "",
             "url": "classes/PTK-FS-File.html#property_openMode"
-        },                {
-            "fqsen": "\\PTK\\FS\\NodeInterface",
-            "name": "NodeInterface",
-            "summary": "Node\u0020representa\u0020um\u0020arquivo\u0020ou\u0020diret\u00F3rio\u0020no\u0020sistema\u0020de\u0020arquivos.",
-            "url": "classes/PTK-FS-NodeInterface.html"
-        },                {
-            "fqsen": "\\PTK\\FS\\NodeInterface\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "",
-            "url": "classes/PTK-FS-NodeInterface.html#method___construct"
-        },                {
-            "fqsen": "\\PTK\\FS\\NodeInterface\u003A\u003Acreate\u0028\u0029",
-            "name": "create",
-            "summary": "Cria\u0020um\u0020arquivo\/diret\u00F3rio.",
-            "url": "classes/PTK-FS-NodeInterface.html#method_create"
-        },                {
-            "fqsen": "\\PTK\\FS\\NodeInterface\u003A\u003Acopy\u0028\u0029",
-            "name": "copy",
-            "summary": "Copia\u0020um\u0020arquivo\/diret\u00F3rio.",
-            "url": "classes/PTK-FS-NodeInterface.html#method_copy"
-        },                {
-            "fqsen": "\\PTK\\FS\\NodeInterface\u003A\u003Amove\u0028\u0029",
-            "name": "move",
-            "summary": "Move\u0020um\u0020arquivo\/diret\u00F3rio.",
-            "url": "classes/PTK-FS-NodeInterface.html#method_move"
-        },                {
-            "fqsen": "\\PTK\\FS\\NodeInterface\u003A\u003Arename\u0028\u0029",
-            "name": "rename",
-            "summary": "Renomeia\u0020o\u0020arquivo\/diret\u00F3rio.\u0020Internamente\u0020utiliza\u0020NodeInterface\u003A\u003Amove\u0028\u0029",
-            "url": "classes/PTK-FS-NodeInterface.html#method_rename"
-        },                {
-            "fqsen": "\\PTK\\FS\\NodeInterface\u003A\u003Adelete\u0028\u0029",
-            "name": "delete",
-            "summary": "Apaga\u0020uma\u0020rquivo\/diret\u00F3rio.",
-            "url": "classes/PTK-FS-NodeInterface.html#method_delete"
         },                {
             "fqsen": "\\PTK\\FS\\Reader\\FileReader",
             "name": "FileReader",
