@@ -36,7 +36,7 @@ use PTK\FS\Recursive\RecursiveDirectory;
 use PTK\FS\Exception\NodeInaccessibleException;
 
 /**
- * Manipulador de diretÃ³rio.
+ * Manipulador de diretório.
  *
  * @author Everton
  */
@@ -66,17 +66,37 @@ class Directory implements NodeInterface
 
     public function copy(string $destiny): Directory
     {
-        if (! \file_exists($destiny)) {
+        if (!\file_exists($destiny)) {
             if (\mkdir($destiny, 0755, true) === false) {
                 throw new NodeInaccessibleException($destiny);
             }
         }
+        
+        $destiny = new Directory($destiny);
 
         $list = $this->recursive()->list();
 
-        foreach ($list as $node) {
+        foreach ($list as $o) {
+            $d = str_replace($this->directory, $destiny->getDirPath(), $o);
+//             echo $o, ' -> ', $d, PHP_EOL;
+            $path = new Path($d);
+            if($path->isDir()){
+                if(!$path->exists()){
+                    mkdir($d, 0755, true);
+                }
+            }
             
+            if($path->isFile()){
+                $parent = dirname($d);
+                if(!file_exists($parent)){
+                    mkdir($parent, 0755, true);
+                }
+                
+                copy($o, $d);
+            }
         }
+        
+        return $destiny;
     }
 
     /**
