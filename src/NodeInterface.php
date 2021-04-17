@@ -100,4 +100,10 @@ interface NodeInterface
      * @return string
      */
     public function getParent(): string;
+    
+    /**
+     * Mostra o caminho do node quando o casting para string for feito.
+     * @return string
+     */
+    public function __toString(): string;
 }

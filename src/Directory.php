@@ -39,6 +39,9 @@ use PTK\FS\Exception\NodeInaccessibleException;
  * Manipulador de diretório.
  *
  * @author Everton
+ * 
+ * TODO Melhorias de código
+ * TODO Codecoverage
  */
 class Directory implements NodeInterface
 {
@@ -241,5 +244,9 @@ class Directory implements NodeInterface
     public function getParent(): string
     {
         return \dirname($this->directory);
+    }
+    
+    public function __toString(): string {
+        return $this->directory;
     }
 }
