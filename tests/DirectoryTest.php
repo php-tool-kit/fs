@@ -323,5 +323,81 @@ class DirectoryTest extends TestCase
         $this->assertEquals($expected, $target->recursive()
             ->list());
     }
+    
+    public function testMoveSuccess()
+    {
+        $dirpath = $this->cacheDir . "test/";
+        $destiny = $this->cacheDir . "test_copyed/";
+        $subdir1 = $dirpath . 'subdir1/';
+        $subdir2 = $dirpath . 'subdir2/';
+        $file1 = $dirpath . 'file1.txt';
+        $file2 = $dirpath . 'file2.txt';
+        $file3 = $dirpath . 'file3.txt';
+        $file11 = $subdir1 . 'file11.txt';
+        $file12 = $subdir1 . 'file12.txt';
+        $dir = new Directory($dirpath);
+        @\mkdir($subdir1);
+        @\mkdir($subdir2);
+        \file_put_contents($file1, 'teste');
+        \file_put_contents($file2, 'teste');
+        \file_put_contents($file3, 'teste');
+        \file_put_contents($file11, 'teste');
+        \file_put_contents($file12, 'teste');
+        
+        $this->assertInstanceOf(Directory::class, $target = $dir->move($destiny));
+        
+        $expected = [
+            realpath($destiny . 'file1.txt'),
+            realpath($destiny . 'file2.txt'),
+            realpath($destiny . 'file3.txt'),
+            realpath($destiny . 'subdir1'),
+            realpath($destiny . 'subdir1/file11.txt'),
+            realpath($destiny . 'subdir1/file12.txt'),
+            realpath($destiny . 'subdir2')
+        ];
+        
+        $this->assertEquals($expected, $target->recursive()
+            ->list());
+        
+        $this->assertFalse(file_exists($dirpath));
+    }
+    
+    public function testRenameSuccess()
+    {
+        $dirpath = $this->cacheDir . "test/";
+        $destiny = $this->cacheDir . "test_copyed/";
+        $subdir1 = $dirpath . 'subdir1/';
+        $subdir2 = $dirpath . 'subdir2/';
+        $file1 = $dirpath . 'file1.txt';
+        $file2 = $dirpath . 'file2.txt';
+        $file3 = $dirpath . 'file3.txt';
+        $file11 = $subdir1 . 'file11.txt';
+        $file12 = $subdir1 . 'file12.txt';
+        $dir = Directory::create($dirpath);
+        @\mkdir($subdir1);
+        @\mkdir($subdir2);
+        \file_put_contents($file1, 'teste');
+        \file_put_contents($file2, 'teste');
+        \file_put_contents($file3, 'teste');
+        \file_put_contents($file11, 'teste');
+        \file_put_contents($file12, 'teste');
+        
+        $this->assertInstanceOf(Directory::class, $target = $dir->rename($destiny));
+        
+        $expected = [
+            realpath($destiny . 'file1.txt'),
+            realpath($destiny . 'file2.txt'),
+            realpath($destiny . 'file3.txt'),
+            realpath($destiny . 'subdir1'),
+            realpath($destiny . 'subdir1/file11.txt'),
+            realpath($destiny . 'subdir1/file12.txt'),
+            realpath($destiny . 'subdir2')
+        ];
+        
+        $this->assertEquals($expected, $target->recursive()
+            ->list());
+        
+        $this->assertFalse(file_exists($dirpath));
+    }
 }
 

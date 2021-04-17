@@ -64,6 +64,14 @@ class Directory implements NodeInterface
         $this->directory = (string) \realpath($directory);
     }
 
+    /**
+     * Copia recursivamente o conteúdo do diretório.
+     * 
+     * @return Directory Retorna uma instância do diretório de destino.
+     * 
+     * {@inheritDoc}
+     * @see \PTK\FS\NodeInterface::copy()
+     */
     public function copy(string $destiny): Directory
     {
         if (!\file_exists($destiny)) {
@@ -78,7 +86,6 @@ class Directory implements NodeInterface
 
         foreach ($list as $o) {
             $d = str_replace($this->directory, $destiny->getDirPath(), $o);
-//             echo $o, ' -> ', $d, PHP_EOL;
             $path = new Path($d);
             if($path->isDir()){
                 if(!$path->exists()){
@@ -128,11 +135,36 @@ class Directory implements NodeInterface
         return true;
     }
 
+    /**
+     * Move o conteúdo para um novo local.
+     * 
+     * Observe que a partir do sucesso da operação, o diretório atual não vai mais existir, então a instância atual não vai mais poder ser usada.
+     * 
+     * @return Directory Retorna uma instância com o diretório de destino.
+     * 
+     * {@inheritDoc}
+     * @see \PTK\FS\NodeInterface::move()
+     */
     public function move(string $destiny): Directory
-    {}
+    {
+        $target = $this->copy($destiny);
+        $this->recursive()->delete();
+        rmdir($this->directory);
+        return $target;
+    }
 
+    /**
+     * Apelido para Directory::move()
+     * 
+     * @see Directory::move()
+     * 
+     * {@inheritDoc}
+     * @see \PTK\FS\NodeInterface::rename()
+     */
     public function rename(string $newName): Directory
-    {}
+    {
+        return $this->move($newName);
+    }
 
     /**
      *
