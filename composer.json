@@ -19,7 +19,8 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.0.3"
+        "php": ">=8.0.3",
+        "php-tool-kit/exception": "dev-main"
     },
     "autoload": {
         "psr-4": {
